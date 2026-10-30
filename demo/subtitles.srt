@@ -1,0 +1,35 @@
+1
+00:00:00,500 --> 00:00:13,000
+Welcome to Ofrenda: Yaadon ka Diya — a virtual remembrance altar bridging Día de los Muertos with the Indian tradition of lighting a Diya.
+
+2
+00:00:13,200 --> 00:00:24,000
+Built for Week 4 of the Dev.to Hacktoberfest Open-Source AI Challenge, exploring "Ghost in the Machine" as a compassionate mirror of memories.
+
+3
+00:00:24,200 --> 00:00:34,500
+Notice our privacy pledge: "Sab kuch aapke device par. Koi account nahi." Everything stays strictly on your personal device.
+
+4
+00:00:34,700 --> 00:00:48,000
+Let us honor Dadi Savitri Devi: we enter her favorite foods like warm jalebi and chai, her melody "Lag Ja Gale", and Sunday morning memories.
+
+5
+00:00:48,200 --> 00:01:00,500
+Now, we click "Light the Diya". The sacred flame awakens, and an open-weight AI model begins streaming a warm remembrance letter in natural Hinglish.
+
+6
+00:01:00,700 --> 00:01:13,000
+Under strict AI rules, the model never invents facts, uses zero clichés, and keeps the tribute concentrated and tender.
+
+7
+00:01:13,200 --> 00:01:27,000
+Our three-tier altar lights up: Level 1 holds her golden portrait, Level 2 presents her food offerings, and Level 3 gathers melodies, extra diyas, and marigolds.
+
+8
+00:01:27,200 --> 00:01:38,000
+With a single click, you can download the entire glowing altar as a high-resolution PNG and export the letter to a text file.
+
+9
+00:01:38,200 --> 00:01:53,000
+Why open models? Because sacred family memories, tears, and private recipes should never feed closed corporate APIs. Open innovation keeps love eternal.
