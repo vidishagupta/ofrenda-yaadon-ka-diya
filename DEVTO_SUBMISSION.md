@@ -30,9 +30,11 @@ The result is displayed as an illuminated, cinematic **3-tier altar**:
 ## 🌐 Live Demo & Open-Source Links
 
 - 🌟 **Live Interactive Web App (Render):** [https://ofrenda-yaadon-ka-diya.onrender.com](https://ofrenda-yaadon-ka-diya.onrender.com)
+- 🎥 **1080p Demo Video (YouTube):** [https://youtu.be/07Xy2v-2z6I](https://youtu.be/07Xy2v-2z6I)
 - 📂 **GitHub Repository:** [https://github.com/vidishagupta/ofrenda-yaadon-ka-diya](https://github.com/vidishagupta/ofrenda-yaadon-ka-diya)
 - 🩺 **Production Health Check:** [https://ofrenda-yaadon-ka-diya.onrender.com/health](https://ofrenda-yaadon-ka-diya.onrender.com/health)
-- 🎥 **1080p Demo Video:** [demo/ofrenda_demo_1080p.mp4](https://github.com/vidishagupta/ofrenda-yaadon-ka-diya/raw/main/demo/ofrenda_demo_1080p.mp4)
+
+{% youtube 07Xy2v-2z6I %}
 
 ---
 
