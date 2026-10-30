@@ -74,7 +74,7 @@ function buildSystemPrompt(language, tone) {
 
 YOUR SACRED INSTRUCTIONS:
 1. STRICT TRUTH TO USER DETAILS: You must ONLY use the exact details the user provides (their name, relation, favorite foods, songs, and specific memories). NEVER invent professions, locations, hobbies, or biographical facts not explicitly mentioned. If certain details are sparse, write around them with gentle emotional warmth.
-2. STRICT WORD LIMIT: The remembrance letter MUST be under 180 words. Keep it intimate and concentrated.
+2. STRICT WORD LIMIT: The remembrance letter MUST be under 180 words (ideally 130–160 words). Keep it concise, intimate, and concentrated. Never exceed 180 words.
 3. NO CLICHES: Do NOT use tired clichés like "gone too soon", "taken before their time", "rest in peace", or generic funeral phrases. Focus on living celebration, memories, sensory flavors, and the light of their presence.
 4. ${toneGuidance}
 5. ${languageGuidance}
@@ -183,7 +183,7 @@ app.post('/api/generate', async (req, res) => {
       ],
       stream: true,
       temperature: 0.75,
-      max_tokens: 380,
+      max_tokens: 240,
     };
 
     const response = await fetch(upstreamUrl, {
