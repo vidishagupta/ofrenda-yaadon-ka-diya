@@ -1,0 +1,21 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1920
+PlayResY: 1080
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: BottomBar,Arial,28,&H00FFE066,&H000000FF,&H00000000,&H80000000,-1,0,0,0,100,100,0,0,1,1.5,0,2,80,80,24,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.50,0:00:13.00,BottomBar,,0,0,0,,Welcome to Ofrenda: Yaadon ka Diya — a virtual remembrance altar bridging Día de los Muertos with the Indian tradition of lighting a Diya.
+Dialogue: 0,0:00:13.20,0:00:24.00,BottomBar,,0,0,0,,Built for Week 4 of the Dev.to Hacktoberfest Open-Source AI Challenge, exploring "Ghost in the Machine" as a compassionate mirror of memories.
+Dialogue: 0,0:00:24.20,0:00:34.50,BottomBar,,0,0,0,,Notice our privacy pledge: "Sab kuch aapke device par. Koi account nahi." Everything stays strictly on your personal device.
+Dialogue: 0,0:00:34.70,0:00:48.00,BottomBar,,0,0,0,,Let us honor Dadi Savitri Devi: we enter her favorite foods like warm jalebi and chai, her melody "Lag Ja Gale", and Sunday morning memories.
+Dialogue: 0,0:00:48.20,0:01:00.50,BottomBar,,0,0,0,,Now, we click "Light the Diya". The sacred flame awakens, and an open-weight AI model begins streaming a warm remembrance letter in natural Hinglish.
+Dialogue: 0,0:01:00.70,0:01:13.00,BottomBar,,0,0,0,,Under strict AI rules, the model never invents facts, uses zero clichés, and keeps the tribute concentrated and tender.
+Dialogue: 0,0:01:13.20,0:01:27.00,BottomBar,,0,0,0,,Our three-tier altar lights up: Level 1 holds her golden portrait, Level 2 presents her food offerings, and Level 3 gathers melodies, extra diyas, and marigolds.
+Dialogue: 0,0:01:27.20,0:01:38.00,BottomBar,,0,0,0,,With a single click, you can download the entire glowing altar as a high-resolution PNG and export the letter to a text file.
+Dialogue: 0,0:01:38.20,0:01:53.00,BottomBar,,0,0,0,,Why open models? Because sacred family memories, tears, and private recipes should never feed closed corporate APIs. Open innovation keeps love eternal.

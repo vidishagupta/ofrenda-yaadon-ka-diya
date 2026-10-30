@@ -131,3 +131,4 @@ In a world where artificial intelligence is often rushed into replacing human in
 By keeping all family memories on-device and using open models as gentle mirrors of gratitude, we honor both the ancient spirits of our ancestors and the future of open technology.
 
 *“Sab kuch aapke device par. Koi account nahi.”* 🪔🏵️
+

@@ -2,4 +2,6 @@ node_modules/
 .env
 .DS_Store
 *.log
-
+demo/raw_video_human/
+demo/test_fixed.webm
+demo/*frame*.png
