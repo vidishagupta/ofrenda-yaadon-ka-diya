@@ -1,0 +1,32 @@
+{
+  "name": "ofrenda-yaadon-ka-diya",
+  "version": "1.0.0",
+  "description": "A virtual ofrenda (remembrance altar) builder fusing Día de los Muertos and Indian traditions, powered by open-weight AI.",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "ofrenda",
+    "diya",
+    "dia-de-los-muertos",
+    "open-weight",
+    "gemma",
+    "ollama",
+    "hacktoberfest",
+    "remembrance"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  }
+}
+

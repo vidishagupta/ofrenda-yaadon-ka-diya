@@ -1,0 +1,1337 @@
+/* ==========================================================================
+   OFRENDA: YAADON KA DIYA
+   Design System: Deep Indigo, Marigold Orange, Sacred Candle Glow
+   Accessibility: High contrast, prefers-reduced-motion support, responsive
+   ========================================================================== */
+
+:root {
+  /* Color Palette */
+  --bg-dark: #070913;
+  --bg-deep: #0e1224;
+  --bg-surface: #141933;
+  --bg-surface-elevated: #1a2042;
+  --bg-glass: rgba(20, 25, 51, 0.85);
+
+  --marigold-primary: #ff8500;
+  --marigold-glow: #ff9e00;
+  --marigold-deep: #e85d04;
+  --marigold-soft: rgba(255, 133, 0, 0.15);
+
+  --candle-flame: #ffe066;
+  --candle-inner: #fff9db;
+  --candle-halo: rgba(255, 224, 102, 0.35);
+
+  --papel-pink: #ff3366;
+  --papel-turquoise: #00bcd4;
+  --papel-yellow: #ffd166;
+  --papel-orange: #ff7b00;
+
+  --text-main: #f8f9fa;
+  --text-secondary: #cdd3e6;
+  --text-muted: #8e98b5;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-gold: rgba(255, 209, 102, 0.35);
+
+  /* Typography */
+  --font-serif: 'Cinzel', 'Playfair Display', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+
+  /* Shadows & Glow */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.6);
+  --glow-marigold: 0 0 25px rgba(255, 133, 0, 0.35);
+  --glow-candle: 0 0 30px rgba(255, 224, 102, 0.4);
+
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s ease;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+}
+
+/* Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-dark);
+  background-image: 
+    radial-gradient(circle at 50% 15%, rgba(255, 133, 0, 0.08) 0%, transparent 60%),
+    radial-gradient(circle at 10% 70%, rgba(255, 51, 102, 0.04) 0%, transparent 50%),
+    radial-gradient(circle at 90% 80%, rgba(0, 188, 212, 0.04) 0%, transparent 50%);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Sr-only accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* ==========================================================================
+   Papel Picado Banners
+   ========================================================================== */
+.papel-picado-garland {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  z-index: 10;
+  padding-top: 4px;
+  border-bottom: 2px dashed rgba(255, 255, 255, 0.15);
+  background: rgba(7, 9, 19, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+.papel-flag {
+  flex: 1;
+  max-width: 90px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0 80%);
+  transform-origin: top center;
+  animation: flag-sway 4s ease-in-out infinite alternate;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.papel-flag:nth-child(even) {
+  animation-duration: 4.8s;
+  animation-delay: -1.2s;
+}
+
+.flag-orange { background: #ff7b00; color: #fff; }
+.flag-pink { background: #e91e63; color: #fff; }
+.flag-yellow { background: #ffd166; color: #111; }
+.flag-turquoise { background: #00bcd4; color: #fff; }
+
+@keyframes flag-sway {
+  0% { transform: rotate(-2deg); }
+  100% { transform: rotate(2deg); }
+}
+
+/* ==========================================================================
+   Floating Marigold Petals
+   ========================================================================== */
+.petals-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.floating-petal {
+  position: absolute;
+  font-size: 1.2rem;
+  opacity: 0.65;
+  user-select: none;
+  animation: petal-fall linear infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes petal-fall {
+  0% {
+    transform: translateY(-50px) rotate(0deg) scale(0.8);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.7;
+  }
+  85% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(105vh) rotate(360deg) scale(1);
+    opacity: 0;
+  }
+}
+
+/* ==========================================================================
+   Layout & Container
+   ========================================================================== */
+.app-layout {
+  position: relative;
+  z-index: 2;
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 4rem;
+}
+
+/* Hero Header */
+.hero-header {
+  text-align: center;
+  margin-bottom: 2.25rem;
+  padding: 1rem 0;
+}
+
+.badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 0.825rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.privacy-badge {
+  background: rgba(46, 196, 182, 0.15);
+  color: #2ec4b6;
+  border: 1px solid rgba(46, 196, 182, 0.35);
+}
+
+.model-badge {
+  background: rgba(255, 133, 0, 0.12);
+  color: var(--marigold-glow);
+  border: 1px solid rgba(255, 133, 0, 0.3);
+}
+
+.pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #2ec4b6;
+  box-shadow: 0 0 8px #2ec4b6;
+  display: inline-block;
+  animation: pulse-glow 2s infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1.2); }
+}
+
+.main-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 0.03em;
+  text-shadow: 0 0 20px rgba(255, 133, 0, 0.3);
+  margin-bottom: 0.5rem;
+}
+
+.title-sub {
+  display: block;
+  font-size: clamp(0.85rem, 1.4vw, 1.05rem);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  color: var(--marigold-glow);
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  margin-bottom: 0.25rem;
+}
+
+.tagline {
+  color: var(--text-secondary);
+  font-size: clamp(0.95rem, 1.1vw, 1.1rem);
+  max-width: 780px;
+  margin: 0 auto 1.5rem;
+}
+
+/* Ofrendas switcher tabs */
+.ofrendas-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.saved-altars-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.altar-tab-btn {
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-subtle);
+  padding: 0.45rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all var(--transition-fast);
+}
+
+.altar-tab-btn:hover {
+  background: var(--bg-surface-elevated);
+  border-color: var(--marigold-glow);
+  color: #fff;
+}
+
+.altar-tab-btn.active {
+  background: rgba(255, 133, 0, 0.2);
+  border-color: var(--marigold-primary);
+  color: #fff;
+  box-shadow: 0 0 12px rgba(255, 133, 0, 0.25);
+}
+
+.altar-tab-delete {
+  color: var(--text-muted);
+  cursor: pointer;
+  margin-left: 0.25rem;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.altar-tab-delete:hover {
+  color: #ff4757;
+}
+
+/* ==========================================================================
+   Main Grid Layout
+   ========================================================================== */
+.main-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (min-width: 1024px) {
+  .main-grid {
+    grid-template-columns: 480px 1fr;
+  }
+}
+
+/* Panels */
+.panel {
+  background: var(--bg-glass);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+}
+
+.panel-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 1.1rem;
+}
+
+.panel-icon {
+  font-size: 1.8rem;
+  line-height: 1;
+  background: rgba(255, 133, 0, 0.12);
+  padding: 0.55rem;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 133, 0, 0.25);
+}
+
+.panel-title {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.panel-subtitle {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  margin-top: 0.2rem;
+}
+
+/* ==========================================================================
+   Form Styles
+   ========================================================================== */
+.ofrenda-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+@media (min-width: 600px) {
+  .form-row {
+    flex-direction: row;
+  }
+  .flex-1 {
+    flex: 1;
+  }
+}
+
+.form-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-main);
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.required {
+  color: #ff6b6b;
+}
+
+.label-hint {
+  font-size: 0.775rem;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.form-input,
+.form-textarea,
+.form-select {
+  width: 100%;
+  background: var(--bg-deep);
+  border: 1px solid var(--border-subtle);
+  color: #fff;
+  border-radius: var(--radius-sm);
+  padding: 0.7rem 0.9rem;
+  font-size: 0.9rem;
+  font-family: inherit;
+  transition: all var(--transition-fast);
+}
+
+.form-input:focus,
+.form-textarea:focus,
+.form-select:focus {
+  outline: none;
+  border-color: var(--marigold-glow);
+  box-shadow: 0 0 0 3px rgba(255, 133, 0, 0.2);
+  background: #121730;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: #5d6785;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.form-select option {
+  background: var(--bg-deep);
+  color: #fff;
+}
+
+/* Photo Dropzone */
+.photo-dropzone {
+  border: 2px dashed rgba(255, 133, 0, 0.35);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  text-align: center;
+  background: rgba(14, 18, 36, 0.7);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.photo-dropzone:hover {
+  border-color: var(--marigold-glow);
+  background: rgba(255, 133, 0, 0.05);
+}
+
+.dropzone-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.dropzone-placeholder svg {
+  stroke: var(--marigold-glow);
+}
+
+.dropzone-placeholder small {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+
+.dropzone-preview {
+  position: relative;
+  display: inline-block;
+}
+
+.dropzone-preview img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid var(--marigold-primary);
+  box-shadow: 0 0 15px rgba(255, 133, 0, 0.3);
+}
+
+.btn-remove-photo {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #ff4757;
+  color: #fff;
+  border: none;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0.7rem 1.25rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border: none;
+  text-decoration: none;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #ff8500 0%, #e85d04 100%);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(232, 93, 4, 0.4);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, #ff9e00 0%, #ff8500 100%);
+  box-shadow: 0 6px 20px rgba(255, 133, 0, 0.5);
+  transform: translateY(-1px);
+}
+
+.btn-light-diya {
+  width: 100%;
+  padding: 0.85rem 1.5rem;
+  font-size: 1.05rem;
+  letter-spacing: 0.02em;
+}
+
+.diya-btn-flame {
+  font-size: 1.25rem;
+  animation: flicker-btn 1.5s infinite;
+}
+
+@keyframes flicker-btn {
+  0%, 100% { transform: scale(1); filter: brightness(1); }
+  50% { transform: scale(1.15); filter: brightness(1.3); }
+}
+
+.btn-secondary {
+  background: var(--bg-surface-elevated);
+  color: #fff;
+  border: 1px solid var(--border-gold);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: rgba(255, 209, 102, 0.15);
+  border-color: var(--candle-flame);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-subtle);
+}
+
+.btn-ghost:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--marigold-glow);
+  border: 1px solid var(--marigold-glow);
+}
+
+.btn-outline:hover:not(:disabled) {
+  background: rgba(255, 133, 0, 0.15);
+}
+
+.btn-sm {
+  padding: 0.4rem 0.85rem;
+  font-size: 0.8rem;
+}
+
+.form-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+/* ==========================================================================
+   Right Column: 3-Tier Altar
+   ========================================================================== */
+.altar-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.altar-panel-header {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.altar-panel-header .panel-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* The Altar Stage (Target for html2canvas export) */
+.altar-stage {
+  background: linear-gradient(180deg, #11152e 0%, #0d1024 45%, #080a18 100%);
+  border: 2px solid var(--border-gold);
+  border-radius: var(--radius-md);
+  padding: 1.5rem 1.25rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    inset 0 0 40px rgba(0, 0, 0, 0.7),
+    0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.altar-papel-banner {
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: 0.85rem;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  border-bottom: 1px dashed rgba(255, 209, 102, 0.25);
+}
+
+/* Tier Common Styling */
+.altar-tier {
+  position: relative;
+  border-radius: var(--radius-md);
+  padding: 1.15rem;
+  margin-bottom: 1.25rem;
+  transition: all var(--transition-normal);
+}
+
+.tier-label {
+  font-family: var(--font-serif);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--candle-flame);
+  margin-bottom: 0.75rem;
+  text-align: center;
+  opacity: 0.85;
+}
+
+/* LEVEL 1: Top Tier (Spirit & Portrait) */
+.altar-tier-1 {
+  background: radial-gradient(circle at 50% 40%, rgba(255, 133, 0, 0.15) 0%, rgba(20, 26, 56, 0.9) 75%);
+  border: 1px solid rgba(255, 209, 102, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.portrait-altar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.85rem;
+}
+
+/* Ornate Frame */
+.ornate-frame {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  padding: 6px;
+  background: linear-gradient(135deg, #ffd700 0%, #ff8c00 50%, #b8860b 100%);
+  box-shadow: 
+    0 0 25px rgba(255, 215, 0, 0.35),
+    0 4px 15px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.frame-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #090c1c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgba(0, 0, 0, 0.4);
+}
+
+.frame-inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.frame-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.5rem;
+}
+
+.sacred-symbol {
+  font-size: 2rem;
+  color: var(--candle-flame);
+}
+
+.frame-placeholder-text {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.altar-name {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.02em;
+  text-shadow: 0 0 12px rgba(255, 209, 102, 0.4);
+}
+
+.altar-relation {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--marigold-glow);
+  font-weight: 500;
+}
+
+.altar-years {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 0.15rem;
+}
+
+/* ==========================================================================
+   Realistic Diya & Flame CSS Animation
+   ========================================================================== */
+.central-diya-wrapper {
+  margin-top: 0.25rem;
+}
+
+.diya-assembly {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.diya-aura {
+  position: absolute;
+  top: -25px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 224, 102, 0.45) 0%, rgba(255, 133, 0, 0.15) 50%, transparent 70%);
+  filter: blur(4px);
+  animation: aura-breathe 2.4s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+.diya-flame {
+  width: 18px;
+  height: 32px;
+  background: linear-gradient(180deg, #ffffff 0%, #fff3b0 25%, #ff9e00 70%, #e85d04 100%);
+  border-radius: 50% 50% 20% 20% / 60% 60% 40% 40%;
+  box-shadow: 
+    0 0 15px rgba(255, 224, 102, 0.8),
+    0 -5px 12px rgba(255, 133, 0, 0.6);
+  transform-origin: center bottom;
+  animation: flame-dance 1.8s ease-in-out infinite alternate;
+  position: relative;
+  z-index: 2;
+}
+
+.flame-inner {
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 14px;
+  background: #ffffff;
+  border-radius: 50% 50% 30% 30% / 60% 60% 40% 40%;
+  opacity: 0.85;
+}
+
+.diya-wick {
+  width: 2px;
+  height: 6px;
+  background: #2b1d0c;
+  margin-top: -3px;
+  position: relative;
+  z-index: 1;
+}
+
+.diya-bowl {
+  width: 58px;
+  height: 22px;
+  background: linear-gradient(180deg, #d47a24 0%, #99480b 60%, #612c05 100%);
+  border-radius: 4px 4px 28px 28px;
+  border-top: 2px solid #ffd166;
+  box-shadow: 
+    0 3px 10px rgba(0, 0, 0, 0.6),
+    inset 0 -2px 5px rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.diya-engraving {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: rgba(255, 240, 180, 0.8);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.small-bowl {
+  width: 38px;
+  height: 15px;
+}
+
+.side-diya .diya-flame {
+  width: 13px;
+  height: 22px;
+}
+
+@keyframes flame-dance {
+  0% {
+    transform: scale(1) rotate(-1deg);
+  }
+  25% {
+    transform: scale(1.04, 0.96) rotate(1.5deg);
+  }
+  50% {
+    transform: scale(0.96, 1.05) rotate(-1.5deg);
+  }
+  75% {
+    transform: scale(1.02, 0.98) rotate(1deg);
+  }
+  100% {
+    transform: scale(1) rotate(-0.5deg);
+  }
+}
+
+@keyframes aura-breathe {
+  0% { transform: scale(0.92); opacity: 0.7; }
+  100% { transform: scale(1.15); opacity: 1; }
+}
+
+/* LEVEL 2: Middle Tier (Offerings / Foods) */
+.altar-tier-2 {
+  background: rgba(18, 23, 49, 0.85);
+  border: 1px solid rgba(255, 133, 0, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+}
+
+.tier-content-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.offerings-container {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  justify-content: center;
+}
+
+.offering-card {
+  background: rgba(10, 13, 29, 0.75);
+  border: 1px solid rgba(255, 209, 102, 0.25);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.85rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  transition: transform var(--transition-fast);
+}
+
+.offering-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--candle-flame);
+}
+
+.offering-icon {
+  font-size: 1.15rem;
+}
+
+.offering-name {
+  font-weight: 600;
+  color: #fff;
+}
+
+.offering-desc {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.offering-card.empty-state {
+  opacity: 0.65;
+  border-style: dashed;
+}
+
+/* Incense Copal / Dhoop */
+.copal-burner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.incense-stick {
+  width: 3px;
+  height: 20px;
+  background: #a3704c;
+  position: relative;
+}
+
+.incense-stick::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5px;
+  height: 5px;
+  background: #ff4500;
+  border-radius: 50%;
+  box-shadow: 0 0 6px #ff4500;
+}
+
+.smoke-glow {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  filter: blur(3px);
+  animation: smoke-rise 2.5s infinite;
+}
+
+@keyframes smoke-rise {
+  0% { transform: translateY(0) scale(0.6); opacity: 0.5; }
+  100% { transform: translateY(-16px) scale(1.6); opacity: 0; }
+}
+
+.burner-caption {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* LEVEL 3: Bottom Tier (Songs & Memories) */
+.altar-tier-3 {
+  background: rgba(14, 17, 36, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.tier-bottom-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.songs-container,
+.memories-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.song-card {
+  border-color: rgba(0, 188, 212, 0.3);
+}
+
+.song-card .offering-icon {
+  color: var(--papel-turquoise);
+}
+
+.memory-blossom {
+  background: rgba(255, 133, 0, 0.12);
+  border: 1px solid rgba(255, 133, 0, 0.3);
+  border-radius: 9999px;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.memory-blossom.empty-state {
+  opacity: 0.6;
+  border-style: dashed;
+}
+
+/* Dynamic extra diyas shelf */
+.additional-diyas-shelf {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-top: 0.85rem;
+  padding-top: 0.65rem;
+  border-top: 1px dashed rgba(255, 209, 102, 0.15);
+}
+
+.extra-candle-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  cursor: pointer;
+}
+
+.extra-candle-caption {
+  font-size: 0.65rem;
+  color: var(--candle-flame);
+  max-width: 60px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Petals Carpet at Base */
+.altar-base-petals {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1rem;
+  font-size: 1.15rem;
+  opacity: 0.85;
+}
+
+.altar-export-watermark {
+  text-align: center;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-top: 0.85rem;
+  letter-spacing: 0.05em;
+  opacity: 0.6;
+}
+
+/* ==========================================================================
+   The Remembrance Letter (Parchment Card)
+   ========================================================================== */
+.remembrance-letter-card {
+  background: linear-gradient(135deg, #1b1622 0%, #171a30 100%);
+  border: 1px solid rgba(255, 209, 102, 0.3);
+  border-radius: var(--radius-md);
+  padding: 1.35rem;
+  box-shadow: 
+    0 8px 25px rgba(0, 0, 0, 0.5),
+    inset 0 0 20px rgba(255, 133, 0, 0.04);
+}
+
+.letter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid rgba(255, 209, 102, 0.2);
+}
+
+.letter-tag {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--candle-flame);
+}
+
+.letter-model-tag {
+  font-size: 0.725rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 9999px;
+  background: rgba(255, 133, 0, 0.12);
+  color: var(--marigold-glow);
+  border: 1px solid rgba(255, 133, 0, 0.25);
+}
+
+.generation-status {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.65rem 0.9rem;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 133, 0, 0.1);
+  border: 1px solid rgba(255, 133, 0, 0.25);
+  font-size: 0.85rem;
+  color: var(--marigold-glow);
+  margin-bottom: 0.85rem;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 133, 0, 0.3);
+  border-top-color: var(--marigold-glow);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.offline-note {
+  font-size: 0.8rem;
+  color: #ffd166;
+  background: rgba(255, 209, 102, 0.1);
+  border-left: 3px solid #ffd166;
+  padding: 0.6rem 0.8rem;
+  border-radius: 4px;
+  margin-bottom: 0.85rem;
+}
+
+.letter-body {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  line-height: 1.85;
+  color: #fff9e6;
+  min-height: 120px;
+  white-space: pre-wrap;
+  text-shadow: 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+.letter-placeholder {
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  font-style: italic;
+  line-height: 1.6;
+}
+
+.letter-placeholder strong {
+  color: var(--marigold-glow);
+  font-style: normal;
+}
+
+.letter-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 1.25rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ==========================================================================
+   Why Open Models? Section
+   ========================================================================== */
+.open-models-section {
+  margin-top: 4rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 1.75rem;
+  box-shadow: var(--shadow-lg);
+  text-align: center;
+}
+
+.section-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--marigold-glow);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.section-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 2.8vw, 2.2rem);
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.75rem;
+}
+
+.section-subtitle {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  max-width: 680px;
+  margin: 0 auto 2rem;
+}
+
+.pillars-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  text-align: left;
+}
+
+@media (min-width: 640px) {
+  .pillars-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .pillars-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.pillar-card {
+  background: var(--bg-deep);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.35rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.pillar-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--marigold-glow);
+}
+
+.pillar-icon {
+  font-size: 1.75rem;
+  line-height: 1;
+}
+
+.pillar-title {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.pillar-desc {
+  font-size: 0.825rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.app-footer {
+  margin-top: 3.5rem;
+  text-align: center;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.footer-sub {
+  font-size: 0.775rem;
+  margin-top: 0.35rem;
+}
+
+/* ==========================================================================
+   Reduced Motion Accessibility
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .petals-container {
+    display: none;
+  }
+
+  .papel-flag {
+    animation: none;
+  }
+
+  .diya-flame {
+    animation: none;
+    transform: scale(1);
+  }
+
+  .diya-aura {
+    animation: none;
+    opacity: 0.8;
+  }
+}
+

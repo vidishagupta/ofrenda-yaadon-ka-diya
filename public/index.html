@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ofrenda: Yaadon ka Diya | Remembrance Altar</title>
+  <meta name="description" content="A virtual ofrenda and remembrance altar fusing Día de los Muertos and Indian traditions, powered by open-weight AI (Gemma).">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Rozha+One&display=swap" rel="stylesheet">
+  
+  <!-- html2canvas for altar PNG export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb5hBydNyWGyPeXYYHYSTdQcrfGKTXhQDupVMozTWWDnH2879ZODzpX59ZD4JE8thCiFHsA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Papel Picado Decorative Garland Header -->
+  <div class="papel-picado-garland" aria-hidden="true">
+    <div class="papel-flag flag-orange"><span>✦ 🪔 ✦</span></div>
+    <div class="papel-flag flag-pink"><span>🏵️</span></div>
+    <div class="papel-flag flag-yellow"><span>✦ 🕊️ ✦</span></div>
+    <div class="papel-flag flag-turquoise"><span>💀</span></div>
+    <div class="papel-flag flag-orange"><span>✦ 🪔 ✦</span></div>
+    <div class="papel-flag flag-pink"><span>🏵️</span></div>
+    <div class="papel-flag flag-yellow"><span>✦ 🕯️ ✦</span></div>
+    <div class="papel-flag flag-turquoise"><span>🌺</span></div>
+  </div>
+
+  <!-- Background Marigold Petals Container -->
+  <div id="petals-canvas" class="petals-container" aria-hidden="true"></div>
+
+  <!-- Main Container -->
+  <div class="app-layout">
+    <!-- Header -->
+    <header class="hero-header">
+      <div class="badge-row">
+        <span class="badge privacy-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Sab kuch aapke device par. Koi account nahi.
+        </span>
+        <span class="badge model-badge" id="ai-model-badge">
+          <span class="pulse-dot"></span> Open Model: Gemma (Local/Hosted)
+        </span>
+      </div>
+
+      <h1 class="main-title">
+        <span class="title-sub">Virtual Remembrance Altar</span>
+        Ofrenda: Yaadon ka Diya
+      </h1>
+      <p class="tagline">
+        Where Día de los Muertos meets the sacred Indian Diya. Honor your ancestors with marigolds, 
+        sacred flame, favorite foods, songs, and an AI-crafted remembrance letter powered by open-weight models.
+      </p>
+
+      <!-- Multi-Ofrenda Bar -->
+      <div class="ofrendas-bar">
+        <div class="saved-altars-list" id="saved-altars-tabs">
+          <!-- Populated by JS -->
+        </div>
+        <button type="button" class="btn btn-sm btn-ghost" id="new-ofrenda-btn" title="Create another ofrenda">
+          + Naya Diya Jalayein (Add Loved One)
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content Split / Grid -->
+    <main class="main-grid">
+      
+      <!-- Left Column: The Form -->
+      <section class="panel form-panel">
+        <div class="panel-header">
+          <div class="panel-icon">🪔</div>
+          <div>
+            <h2 class="panel-title">Yaadon ki Thali</h2>
+            <p class="panel-subtitle">Share who you are honoring. Every memory breathes life into their altar.</p>
+          </div>
+        </div>
+
+        <form id="ofrenda-form" class="ofrenda-form" novalidate>
+          
+          <!-- Photo Upload (Browser Only) -->
+          <div class="form-group photo-upload-group">
+            <label class="form-label" for="photo-input">
+              Photo of your Loved One
+              <span class="label-hint">(Stays strictly in your browser)</span>
+            </label>
+            <div class="photo-dropzone" id="photo-dropzone">
+              <input type="file" id="photo-input" accept="image/*" class="sr-only">
+              <div class="dropzone-preview" id="dropzone-preview" style="display: none;">
+                <img id="preview-image" src="" alt="Loved one preview">
+                <button type="button" class="btn-remove-photo" id="remove-photo-btn" title="Remove photo">&times;</button>
+              </div>
+              <div class="dropzone-placeholder" id="dropzone-placeholder">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                <span>Click or drag a portrait photo here</span>
+                <small>Optional • Never uploaded to any server</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- Name & Relation -->
+          <div class="form-row">
+            <div class="form-group flex-1">
+              <label class="form-label" for="person-name">Loved One's Name <span class="required">*</span></label>
+              <input type="text" id="person-name" class="form-input" placeholder="e.g., Dadi Savitri Devi or Abuelito Mateo" required>
+            </div>
+            <div class="form-group flex-1">
+              <label class="form-label" for="person-relation">Relation</label>
+              <input type="text" id="person-relation" class="form-input" placeholder="e.g., Grandmother, Father, Mentor, Friend">
+            </div>
+          </div>
+
+          <!-- Lifespan Years -->
+          <div class="form-group">
+            <label class="form-label" for="person-years">Lifespan / Years of Life</label>
+            <input type="text" id="person-years" class="form-input" placeholder="e.g., 1942 – 2021">
+          </div>
+
+          <!-- Favorite Foods -->
+          <div class="form-group">
+            <label class="form-label" for="person-foods">
+              Favorite Foods & Treats (Bhog / Ofrendas)
+              <span class="label-hint">What made their eyes light up at dinner?</span>
+            </label>
+            <input type="text" id="person-foods" class="form-input" placeholder="e.g., Garam garam jalebi, Rajma chawal, Pan de muerto, Chai">
+          </div>
+
+          <!-- Favorite Songs -->
+          <div class="form-group">
+            <label class="form-label" for="person-songs">
+              Favorite Songs / Melodies
+              <span class="label-hint">The music they hummed or danced to</span>
+            </label>
+            <input type="text" id="person-songs" class="form-input" placeholder="e.g., Lag Ja Gale, Kishore Kumar classics, Amor Eterno">
+          </div>
+
+          <!-- 2-3 Short Memories -->
+          <div class="form-group">
+            <label class="form-label" for="person-memories">
+              2–3 Cherished Memories
+              <span class="label-hint">Specific moments, quirks, sayings, or laughs</span>
+            </label>
+            <textarea id="person-memories" class="form-textarea" rows="3" placeholder="e.g., Rolling hot rotis on Sunday mornings; singing out of tune in the kitchen; the way her laugh filled the entire house..."></textarea>
+          </div>
+
+          <!-- Language & Tone Controls -->
+          <div class="form-row">
+            <div class="form-group flex-1">
+              <label class="form-label" for="letter-language">Letter Language</label>
+              <select id="letter-language" class="form-select">
+                <option value="hinglish" selected>Hinglish (Dil Se Hindi-English)</option>
+                <option value="english">English (Warm & Evocative)</option>
+              </select>
+            </div>
+
+            <div class="form-group flex-1">
+              <label class="form-label" for="letter-tone">Tone of Remembrance</label>
+              <select id="letter-tone" class="form-select">
+                <option value="gentle" selected>Gentle & Tender (Sukoon)</option>
+                <option value="funny">Lighthearted & Joyful (Hasi ke Pal)</option>
+                <option value="poetic">Poetic & Soulful (Shayari / Lyrical)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary btn-light-diya" id="submit-btn">
+              <span class="diya-btn-flame" aria-hidden="true">🔥</span>
+              <span class="btn-text">Light the Diya (Diya Jalayein)</span>
+            </button>
+            <button type="button" class="btn btn-ghost" id="fill-example-btn">
+              Load Example Tribute
+            </button>
+          </div>
+
+        </form>
+      </section>
+
+      <!-- Right Column: The 3-Level Altar View -->
+      <section class="panel altar-panel">
+        <div class="panel-header altar-panel-header">
+          <div class="panel-title-wrap">
+            <div class="panel-icon">🏵️</div>
+            <div>
+              <h2 class="panel-title">The Sacred Ofrenda</h2>
+              <p class="panel-subtitle">3-Tier Altar illuminated by sacred flame and memory</p>
+            </div>
+          </div>
+          <div class="altar-quick-actions">
+            <button type="button" class="btn btn-sm btn-outline" id="add-candle-btn" title="Add another candle for loved ones">
+              + Light Extra Diya
+            </button>
+          </div>
+        </div>
+
+        <!-- The 3-Tier Visual Altar Display (Capturable by html2canvas) -->
+        <div class="altar-stage" id="altar-capture-stage">
+          
+          <!-- Top Garland on Altar -->
+          <div class="altar-papel-banner" aria-hidden="true">
+            <span>🏵️</span><span>🪔</span><span>🏵️</span><span>🕊️</span><span>🏵️</span><span>🪔</span><span>🏵️</span>
+          </div>
+
+          <!-- LEVEL 1 (Top Tier): Spirit & Portrait -->
+          <div class="altar-tier altar-tier-1">
+            <div class="tier-label">Nivel 1 • Eternal Spirit (Aatma)</div>
+            
+            <div class="portrait-altar-container">
+              <!-- Golden Picture Frame -->
+              <div class="ornate-frame" id="altar-photo-frame">
+                <div class="frame-inner" id="altar-photo-display">
+                  <div class="frame-placeholder">
+                    <span class="sacred-symbol">🕉️</span>
+                    <span class="frame-placeholder-text">Portrait of Loved One</span>
+                  </div>
+                </div>
+                <div class="marigold-garland-drape" aria-hidden="true"></div>
+              </div>
+
+              <!-- Name & Lifespan -->
+              <div class="altar-person-info">
+                <h3 class="altar-name" id="altar-display-name">Beloved Ancestor</h3>
+                <span class="altar-relation" id="altar-display-relation">Forever in our hearts</span>
+                <span class="altar-years" id="altar-display-years">Across All Time</span>
+              </div>
+
+              <!-- Central Diya / Candle -->
+              <div class="central-diya-wrapper">
+                <div class="diya-assembly lit" id="main-diya">
+                  <div class="diya-aura"></div>
+                  <div class="diya-flame">
+                    <div class="flame-inner"></div>
+                  </div>
+                  <div class="diya-wick"></div>
+                  <div class="diya-bowl">
+                    <div class="diya-rim"></div>
+                    <div class="diya-engraving">Yaad</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- LEVEL 2 (Middle Tier): Offerings of Nourishment & Light -->
+          <div class="altar-tier altar-tier-2">
+            <div class="tier-label">Nivel 2 • Bhog & Ofrendas (Nourishment & Light)</div>
+            
+            <div class="tier-content-row">
+              <!-- Side Diya Left -->
+              <div class="side-diya lit" id="extra-diya-1">
+                <div class="diya-flame"><div class="flame-inner"></div></div>
+                <div class="diya-bowl small-bowl"></div>
+              </div>
+
+              <!-- Food Offerings Card Grid -->
+              <div class="offerings-container" id="foods-container">
+                <div class="offering-card empty-state">
+                  <span class="offering-icon">🍲</span>
+                  <span class="offering-name">Favorite Foods</span>
+                  <span class="offering-desc">Aroma of their favorite dishes</span>
+                </div>
+              </div>
+
+              <!-- Side Diya Right -->
+              <div class="side-diya lit" id="extra-diya-2">
+                <div class="diya-flame"><div class="flame-inner"></div></div>
+                <div class="diya-bowl small-bowl"></div>
+              </div>
+            </div>
+
+            <!-- Incense / Copal / Dhoop burner -->
+            <div class="copal-burner">
+              <div class="smoke-glow" aria-hidden="true"></div>
+              <div class="incense-stick"></div>
+              <span class="burner-caption">Copal & Chandan Dhoop</span>
+            </div>
+          </div>
+
+          <!-- LEVEL 3 (Bottom Tier): Melodies, Memories & Earth -->
+          <div class="altar-tier altar-tier-3">
+            <div class="tier-label">Nivel 3 • Sur & Yaadein (Melodies & Cherished Moments)</div>
+            
+            <div class="tier-bottom-content">
+              <!-- Songs offerings -->
+              <div class="songs-container" id="songs-container">
+                <div class="offering-card song-card empty-state">
+                  <span class="offering-icon">🎵</span>
+                  <span class="offering-name">Favorite Melodies</span>
+                  <span class="offering-desc">The songs they loved to sing</span>
+                </div>
+              </div>
+
+              <!-- Memories petals -->
+              <div class="memories-container" id="memories-container">
+                <div class="memory-blossom empty-state">
+                  <span>🌸 Sacred memories resting here</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Extra User Added Diyas Bar -->
+            <div class="additional-diyas-shelf" id="additional-diyas-shelf">
+              <!-- Extra candles dynamically appended here -->
+            </div>
+
+            <!-- Petals Carpet at Base -->
+            <div class="altar-base-petals" aria-hidden="true">
+              <span class="petal p1">🏵️</span>
+              <span class="petal p2">🌼</span>
+              <span class="petal p3">🏵️</span>
+              <span class="petal p4">🌺</span>
+              <span class="petal p5">🏵️</span>
+              <span class="petal p6">🌼</span>
+              <span class="petal p7">🏵️</span>
+            </div>
+          </div>
+
+          <!-- Ofrenda Altar Footer Tag for PNG Export -->
+          <div class="altar-export-watermark">
+            <span>Ofrenda: Yaadon ka Diya • Dev.to Hacktoberfest Open AI Challenge</span>
+          </div>
+
+        </div>
+
+        <!-- The Remembrance Letter (Parchment Card) -->
+        <div class="remembrance-letter-card" id="letter-card">
+          <div class="letter-header">
+            <div class="letter-tag">
+              <span class="quill-icon">📜</span>
+              <span>Letter of Remembrance (Yaadon ki Chitthi)</span>
+            </div>
+            <div class="letter-model-tag" id="letter-source-tag">
+              Gemma Open-Weight Stream
+            </div>
+          </div>
+
+          <!-- Status / Streaming Banner -->
+          <div class="generation-status" id="generation-status" style="display: none;">
+            <div class="spinner"></div>
+            <span id="generation-status-text">Weaving memories with Gemma...</span>
+          </div>
+
+          <!-- Fallback Note (if local ollama not reachable) -->
+          <div class="offline-note" id="offline-note" style="display: none;"></div>
+
+          <!-- Streamed Letter Content -->
+          <div class="letter-body" id="letter-content">
+            <p class="letter-placeholder">
+              Fill in your loved one's details and click <strong>"Light the Diya"</strong>. 
+              The open-weight model will write a tender, personal remembrance letter honoring their spirit 
+              using only the memories you provided.
+            </p>
+          </div>
+
+          <!-- Letter Actions (Download / Copy) -->
+          <div class="letter-actions" id="letter-actions">
+            <button type="button" class="btn btn-sm btn-secondary" id="download-letter-btn" disabled>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download Letter (.txt)
+            </button>
+            <button type="button" class="btn btn-sm btn-primary" id="download-altar-png-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              Download Altar (PNG)
+            </button>
+            <button type="button" class="btn btn-sm btn-ghost" id="copy-letter-btn" disabled>
+              Copy Text
+            </button>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- Why Open Models? Section -->
+    <section class="open-models-section" id="why-open-models">
+      <div class="section-badge">Open-Weight AI • Privacy & Cultural Preservation</div>
+      <h2 class="section-title">Why Open Models for Sacred Memories?</h2>
+      <p class="section-subtitle">
+        When we speak to our ancestors, we share private names, tears, kitchen recipes, and childhood vulnerabilities. 
+        Here is why proprietary closed APIs shouldn't hold our grief.
+      </p>
+
+      <div class="pillars-grid">
+        <div class="pillar-card">
+          <div class="pillar-icon">🔒</div>
+          <h3 class="pillar-title">100% Offline & Private</h3>
+          <p class="pillar-desc">
+            With open-weight models like Gemma running via Ollama, family stories never leave your personal computer. 
+            No cloud telemetry, no ad profiling, and no server logs of who you miss.
+          </p>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-icon">♾️</div>
+          <h3 class="pillar-title">No Sudden Sunsets</h3>
+          <p class="pillar-desc">
+            Proprietary SaaS APIs can increase pricing, deprecate models, or shut down entirely. 
+            An open-weight model weights file on your drive is yours forever — immune to corporate boardroom decisions.
+          </p>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-icon">🏵️</div>
+          <h3 class="pillar-title">Cultural Syncretism</h3>
+          <p class="pillar-desc">
+            Bridging Mexican Día de los Muertos and Indian Diya traditions requires nuance. Open models allow us 
+            to calibrate exact system prompts in natural Hinglish without corporate filters sanitizing authentic folk sentiment.
+          </p>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-icon">🌱</div>
+          <h3 class="pillar-title">Ghost in the Machine</h3>
+          <p class="pillar-desc">
+            We do not resurrect a ghost to impersonate the dead. Instead, the open model acts as an empathetic mirror — 
+            gently arranging the memories <em>you</em> provided into a golden flame of gratitude.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <div class="footer-content">
+        <p>
+          <strong>Ofrenda: Yaadon ka Diya</strong> • Created for Dev.to Hacktoberfest Open-Source AI Challenge Week 4.
+        </p>
+        <p class="footer-sub">
+          Honoring Mexican & Indian heritage • Open-Weight Gemma via Ollama / Render • Zero Trackers • Respecting <em>prefers-reduced-motion</em>
+        </p>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
+
