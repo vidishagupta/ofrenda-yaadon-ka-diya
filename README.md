@@ -3,10 +3,15 @@
 > **Dev.to Hacktoberfest Open-Source AI Challenge — Week 4**  
 > *Theme: Ghost in the Machine / Día de los Muertos*
 
+[![Live Website](https://img.shields.io/badge/Live%20Demo-Render-46e3b7.svg?style=for-the-badge&logo=render)](https://ofrenda-yaadon-ka-diya.onrender.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-amber.svg)](LICENSE)
 [![AI: Open-Weight Gemma](https://img.shields.io/badge/Model-Gemma%20(Open--Weight)-ff8500.svg)](https://ai.google.dev/gemma)
-[![Deployment: Render](https://img.shields.io/badge/Deploy-Render-46e3b7.svg)](render.yaml)
 [![Privacy: 100% Client-Side Storage](https://img.shields.io/badge/Privacy-100%25%20On--Device-2ec4b6.svg)](#privacy-first-architecture)
+
+---
+
+### 🌐 Live Production Website
+**Visit the live ofrenda:** [https://ofrenda-yaadon-ka-diya.onrender.com](https://ofrenda-yaadon-ka-diya.onrender.com)
 
 ---
 
